@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis XV Años - Paola Bautista Hernández</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #d4af37;   /* Dorado metálico */
+            --accent-color: #8b0000;    /* Rojo vino / Granate */
+            --light-gold: #fdfaf3;      /* Fondo dorado sutil */
+            --bg-gradient: linear-gradient(135deg, #fcf8f7 0%, #f4eae8 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-color: #4a4a4a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 10px;
+            overflow-x: hidden;
+        }
+
+        /* Contenedor de Pétalos */
+        #petals-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+            overflow: hidden;
+        }
+
+        .petal {
+            position: absolute;
+            background: radial-gradient(circle, #ffb6c1 0%, #8b0000 100%);
+            border-radius: 15px 0px 15px 0px;
+            opacity: 0.7;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                top: -10%;
+                transform: translateX(0) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                top: 105%;
+                transform: translateX(100px) rotate(360deg);
+                opacity: 0.2;
+            }
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 45px 25px;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(139, 0, 0, 0.08);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            position: relative;
+            backdrop-filter: blur(10px);
+            z-index: 1;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid var(--primary-color);
+            border-radius: 16px;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        /* Foto de la Quinceañera (Más grande) */
+        .photo-container {
+            width: 210px;
+            height: 210px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            padding: 6px;
+            background: linear-gradient(45deg, var(--primary-color), #fff, var(--primary-color));
+            box-shadow: 0 10px 25px rgba(139, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            background-color: #eee;
+        }
+
+        .subtitle {
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.8em;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            color: var(--accent-color);
+            font-size: 3.4em;
+            margin: 5px 0 15px 0;
+            font-weight: 400;
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--accent-color);
+            font-size: 1.05em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20%;
+            width: 60%;
+            height: 1px;
+            background-color: var(--primary-color);
+        }
+
+        .intro-text {
+            font-size: 0.9em;
+            line-height: 1.6;
+            color: #666;
+            font-weight: 300;
+            margin-bottom: 25px;
+        }
+
+        /* Contador */
+        .countdown {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0 30px;
+            background: var(--light-gold);
+            padding: 15px 10px;
+            border-radius: 16px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .time-box {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .number {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .label {
+            font-size: 0.65em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-top: 3px;
+        }
+
+        /* Bloques de Ceremonia y Salón */
+        .event-section {
+            margin-top: 25px;
+            text-align: left;
+        }
+
+        .event-card {
+            background: #ffffff;
+            padding: 18px;
+            border-radius: 16px;
+            margin-bottom: 15px;
+            border: 1px solid #f0f0f0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+
+        .event-card h3 {
+            color: var(--accent-color);
+            font-size: 1em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .event-card h3 i {
+            color: var(--primary-color);
+        }
+
+        .event-detail {
+            font-size: 0.85em;
+            margin-bottom: 6px;
+            color: #555;
+        }
+
+        .event-detail strong {
+            color: #333;
+        }
+
+        /* Padrinos Principales */
+        .godparents {
+            margin-top: 30px;
+            background: var(--light-gold);
+            padding: 25px 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            text-align: center;
+        }
+
+        .godparent-item {
+            margin-top: 10px;
+        }
+
+        .godparent-role {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .godparent-name {
+            color: var(--accent-color);
+            font-size: 1.25em;
+            font-weight: 600;
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+
+        /* Itinerario */
+        .itinerary {
+            margin-top: 30px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 20px;
+            margin: 15px 10px 0;
+            text-align: left;
+            border-left: 2px solid var(--primary-color);
+        }
+
+        .timeline-item {
+            margin-bottom: 18px;
+            position: relative;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 4px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            border: 2px solid #fff;
+        }
+
+        .timeline-time {
+            font-weight: 700;
+            color: var(--accent-color);
+            font-size: 0.85em;
+        }
+
+        .timeline-title {
+            color: #555;
+            font-size: 0.85em;
+        }
+
+        /* Mesa de Regalos */
+        .gifts {
+            margin-top: 30px;
+        }
+
+        .gift-box {
+            background: #fff;
+            padding: 15px;
+            border-radius: 16px;
+            margin-top: 10px;
+            border: 1px dashed var(--primary-color);
+            font-size: 0.85em;
+            line-height: 1.6;
+        }
+
+        /* Botones */
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 18px;
+            border-radius: 50px;
+            font-size: 0.8em;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-maps {
+            background-color: transparent;
+            color: var(--accent-color);
+            border: 1.5px solid var(--accent-color);
+        }
+
+        .btn-maps:hover {
+            background-color: var(--accent-color);
+            color: #ffffff;
+        }
+
+        .btn-rsvp {
+            background-color: #25D366;
+            color: #ffffff;
+            border: 1.5px solid #25D366;
+            margin-top: 5px;
+        }
+
+        .btn-rsvp:hover {
+            background-color: #1eb857;
+        }
+    </style>
+</head>
+<body>
+
+<div id="petals-container"></div>
+
+<div class="card">
+    
+    <div class="photo-container">
+        <img src="foto-paola.jpeg" alt="Paola Bautista">
+    </div>
+
+    <div class="subtitle">Mis XV Años</div>
+    <h1>Paola Bautista</h1>
+    
+    <p class="intro-text">Hay momentos especiales en la vida que se vuelven inolvidables al compartirlos con las personas que más queremos.</p>
+    
+    <div class="countdown">
+        <div class="time-box">
+            <span class="number" id="days">00</span>
+            <span class="label">Días</span>
+        </div>
+        <div class="time-box">
+            <span class="number" id="hours">00</span>
+            <span class="label">Horas</span>
+        </div>
+        <div class="time-box">
+            <span class="number" id="minutes">00</span>
+            <span class="label">Min.</span>
+        </div>
+        <div class="time-box">
+            <span class="number" id="seconds">00</span>
+            <span class="label">Seg.</span>
+        </div>
+    </div>
+
+    <div class="event-section">
+        <h2>Ubicaciones y Horarios</h2>
+
+        <div class="event-card">
+            <h3><i class="fa-solid fa-church"></i> Ceremonia Religiosa</h3>
+            <div class="event-detail"><strong>📅 Fecha:</strong> 3 de Octubre, 2026</div>
+            <div class="event-detail"><strong>⏰ Hora de Misa:</strong> 16:30 hrs</div>
+            <div class="event-detail"><strong>📍 Iglesia:</strong> Parroquia del Sagrado Corazón</div>
+            <a href="https://maps.google.com" target="_blank" class="btn btn-maps" style="margin-top: 10px;">
+                <i class="fa-solid fa-map-pin"></i> Ver Iglesia en Maps
+            </a>
+        </div>
+
+        <div class="event-card">
+            <h3><i class="fa-solid fa-champagne-glasses"></i> Recepción y Fiesta</h3>
+            <div class="event-detail"><strong>📅 Fecha:</strong> 3 de Octubre, 2026</div>
+            <div class="event-detail"><strong>⏰ Acceso al Salón:</strong> 18:00 hrs</div>
+            <div class="event-detail"><strong>📍 Lugar:</strong> Salón Las Brisas</div>
+            <div class="event-detail"><strong>👗 Vestimenta:</strong> Formal / Código de Etiqueta</div>
+            <a href="https://maps.google.com" target="_blank" class="btn btn-maps" style="margin-top: 10px;">
+                <i class="fa-solid fa-location-dot"></i> Ver Salón en Maps
+            </a>
+        </div>
+    </div>
+
+    <div class="godparents">
+        <h2>Mis Padrinos</h2>
+        <div class="godparent-item">
+            <div class="godparent-role">Padrinos Principales</div>
+            <div class="godparent-name">Juan Pérez y María Gómez</div>
+        </div>
+    </div>
+
+    <div class="itinerary">
+        <h2>Itinerario</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-time">16:30 hrs</div>
+                <div class="timeline-title">Ceremonia Religiosa</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">18:00 hrs</div>
+                <div class="timeline-title">Acceso al Salón y Recepción</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">19:00 hrs</div>
+                <div class="timeline-title">Entrada Triunfal y Vals</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">20:00 hrs</div>
+                <div class="timeline-title">Cena Especial</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">21:30 hrs</div>
+                <div class="timeline-title">Apertura de Pista y Baile</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="gifts">
+        <h2>Mesa de Regalos</h2>
+        <p class="intro-text" style="margin-bottom:0;">Tu presencia es nuestro mejor regalo, pero si deseas hacerme un detalle:</p>
+        <div class="gift-box">
+            <p><i class="fa-solid fa-gift" style="color:var(--primary-color)"></i> <strong>Liverpool / Amazon:</strong> Evento No. 123456</p>
+            <p><i class="fa-solid fa-envelope" style="color:var(--primary-color)"></i> <strong>Lluvia de sobres:</strong> Habrá buzón en la recepción</p>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <a href="https://wa.me/521234567890?text=¡Hola!%20Confirmo%20mi%20asistencia%20a%20los%20XV%20de%20Paola" class="btn btn-rsvp" target="_blank">
+            <i class="fa-brands fa-whatsapp" style="font-size:1.2em"></i> Confirmar Asistencia por WhatsApp
+        </a>
+    </div>
+</div>
+
+<script>
+    // Contador
+    const targetDate = new Date(2026, 9, 3, 16, 30, 0).getTime();
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const difference = targetDate - now;
+
+        if (difference > 0) {
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? '0' + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? '0' + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? '0' + seconds : seconds;
+        } else {
+            document.querySelector(".countdown").innerHTML = "<h3 style='color:var(--accent-color); width:100%; text-align:center;'>¡El gran día ha llegado!</h3>";
+        }
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Generador de Pétalos Cayendo
+    function createPetal() {
+        const container = document.getElementById('petals-container');
+        const petal = document.createElement('div');
+        petal.classList.add('petal');
+        
+        // Tamaños aleatorios para dinamismo
+        const size = Math.random() * 12 + 8;
+        petal.style.width = `${size}px`;
+        petal.style.height = `${size * 1.3}px`;
+        
+        // Posición horizontal inicial aleatoria
+        petal.style.left = `${Math.random() * 100}%`;
+        
+        // Duración y retraso de animación aleatorios
+        const duration = Math.random() * 5 + 5;
+        petal.style.animationDuration = `${duration}s`;
+        
+        container.appendChild(petal);
+        
+        // Eliminar pétalo cuando termina su animación
+        setTimeout(() => {
+            petal.remove();
+        }, duration * 1000);
+    }
+
+    // Crear un pétalo cada 300 milisegundos
+    setInterval(createPetal, 300);
+</script>
+
+</body>
+</html>
